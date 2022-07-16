@@ -1,0 +1,32 @@
+.search__wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 45px;
+
+  & > * {
+    width: 265px !important;
+    max-height: 45px !important;
+    max-width: 23%;
+  }
+
+  @media (max-width: 1024px) {
+    & > * {
+      max-width: 160px;
+      max-height: 45px;
+    }
+
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    .header__mode-switcher-wrapper {
+
+    }
+    gap: 15px;
+    & > * {
+      max-width: 280px;
+      max-height: 45px;
+    }
+
+  }
+}

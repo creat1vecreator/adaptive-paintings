@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+
+    .header__logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .header__switcher {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+
+    @media (max-width: 1336px) {
+        max-width: 1180px;
+    }
+    @media (max-width: 1024px) {
+        max-width: 1115.2px;
+    }
+    @media (max-width: 768px) {
+        .header__modeSwitcherWrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        box-sizing: border-box;
+        max-width: 280px;
+        margin: 25px auto;
+
+    }
+}

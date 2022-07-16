@@ -1,0 +1,20 @@
+input.search__accordionInput {
+  border: none;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 95px;
+  height: 45px;
+  border-radius: 8px;
+  text-align: center;
+  &:focus {
+    outline: none;
+  }
+}
+input[data-theme="light"] {
+  background: #EFEFEF;
+
+}
+input[data-theme="dark"] {
+  background: #FFFFFF;
+
+}
