@@ -13,8 +13,6 @@ function MainPage({
   setPaintings,
   pages,
   setPages,
-  theme,
-  setTheme,
   locationOptions,
   authorOptions,
 }) {
@@ -56,13 +54,10 @@ function MainPage({
 
       <Header
         className="header"
-        theme={theme}
-        setTheme={setTheme}
       />
 
       <FilterGroup
         className="search"
-        theme={theme}
         handleSearch={handleSearch}
         locationOptions={locationOptions}
         authorOptions={authorOptions}
@@ -87,7 +82,6 @@ function MainPage({
       <Pagination
         pages={pages}
         setPages={setPages}
-        theme={theme}
       />
     </div>
   );
@@ -105,16 +99,13 @@ MainPage.propTypes = {
     currentPage: PropTypes.number.isRequired,
   }).isRequired,
   setPages: PropTypes.func.isRequired,
-  theme: PropTypes.string.isRequired,
-  setTheme: PropTypes.func.isRequired,
   locationOptions: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   authorOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-
 };
 export default MainPage;

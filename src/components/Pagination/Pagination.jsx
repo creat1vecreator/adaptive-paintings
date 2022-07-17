@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styles from './styled.module.scss';
 
 function Pagination({
   pages,
   setPages,
-  theme,
 }) {
+  const theme = useSelector((state) => state.theme.theme);
   const totalButtons = [];
 
   for (let i = 1; i <= pages.totalPages; i++) {
@@ -141,7 +142,6 @@ Pagination.propTypes = {
 
   }).isRequired,
   setPages: PropTypes.func.isRequired,
-  theme: PropTypes.string.isRequired,
 };
 
 export default Pagination;

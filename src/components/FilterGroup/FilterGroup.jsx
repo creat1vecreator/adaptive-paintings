@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import ControlledAccordions from '../utils/CustomAccorion/CustomAccordion';
 import CustomSelect from '../utils/CustomSelect/CustomSelect';
 import CustomTextField from '../utils/CustomTextField/CustomTextField';
@@ -7,11 +8,11 @@ import style from './styled.module.scss';
 
 function FilterGroup({
   handleSearch,
-  theme,
   locationOptions,
   authorOptions,
 
 }) {
+  const theme = useSelector((state) => state.theme.theme);
   const [filterState, setFilterState] = useState(
     {
       nameValue: '',
@@ -74,7 +75,6 @@ function FilterGroup({
 }
 FilterGroup.propTypes = {
   handleSearch: PropTypes.func.isRequired,
-  theme: PropTypes.string.isRequired,
   locationOptions: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,

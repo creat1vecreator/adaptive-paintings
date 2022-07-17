@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { useSelector } from 'react-redux';
 import MainPage from './pages/MainPage/MainPage';
 import { getAllAuthors, getAllLocations, getPaintingsByPage } from './requests/request';
 
 function App() {
+  const theme = useSelector((state) => state.theme.theme);
   const [paintings, setPaintings] = useState([]);
-  const [theme, setTheme] = useState('light');
 
   const [authorOptions, setAuthorOptions] = useState([]);
   const [locationOptions, setLocationOptions] = useState([]);
@@ -38,9 +39,6 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
-  }, [theme]);
   return (
     <MainPage
       className="main-page"
@@ -48,8 +46,6 @@ function App() {
       setPaintings={setPaintings}
       pages={pages}
       setPages={setPages}
-      theme={theme}
-      setTheme={setTheme}
       locationOptions={locationOptions}
       authorOptions={authorOptions}
     />

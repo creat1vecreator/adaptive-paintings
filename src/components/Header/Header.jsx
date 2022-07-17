@@ -1,23 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styled.module.scss';
 import LogoImg from '../../images/Logo.svg';
+import { toggleTheme } from '../../store/themeSlice';
 
-function Header({
-  theme,
-  setTheme,
-}) {
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+function Header() {
+  const theme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
+  const changeTheme = () => dispatch(toggleTheme());
   return (
     <div className={styles.header}>
       <div className="header__logo-wrapper">
         <img className={styles.header__logo} src={LogoImg} alt="logo" />
       </div>
       <div
+        onClick={changeTheme}
         className="header__modeSwitcherWrapper"
-        onClick={toggleTheme}
       >
         <svg
           width="20"
@@ -38,8 +36,5 @@ function Header({
     </div>
   );
 }
-Header.propTypes = {
-  theme: PropTypes.string.isRequired,
-  setTheme: PropTypes.func.isRequired,
-};
+
 export default Header;
