@@ -7,7 +7,6 @@ const themeSlice = createSlice({
   },
   reducers: {
     toggleTheme(state) {
-      // eslint-disable-next-line no-param-reassign
       state.theme = state.theme === 'light' ? 'dark' : 'light';
       document.body.setAttribute('data-theme', state.theme);
     },

@@ -2,8 +2,8 @@
   box-sizing: border-box;
   margin: auto;
   padding-top: 37px;
-  width: 1180px;
-  max-width: 1800px;
+  max-width: 1180px;
+
   .paintings__wrapper {
     display: grid;
     gap: 20px;
@@ -12,8 +12,7 @@
   }
 
   @media (max-width: 1336px) {
-    width: 940px;
-    max-width: 1180px;
+    max-width: 940px;
     .paintings__wrapper {
       display: grid;
       gap: 20px;

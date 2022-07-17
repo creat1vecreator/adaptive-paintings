@@ -8,21 +8,12 @@ import { GET_ALL_PAINTINGS } from '../../requests/routes';
 import ImageWithInfo from '../../components/ImageWithInfo/ImageWithInfo';
 import { getAllPaintings, getFilteredPaintings, getPaintingsByPage } from '../../requests/request';
 
-function MainPage({
-  paintings,
-  setPaintings,
-  pages,
-  setPages,
-  locationOptions,
-  authorOptions,
-}) {
+function MainPage({ paintings, setPaintings, pages, setPages, locationOptions, authorOptions }) {
   const handleSearch = (namePainting, authorId, locationId, from, before) => {
     const stringWithParams = new URL(GET_ALL_PAINTINGS);
-
     if (namePainting) {
       stringWithParams.searchParams.append('q', namePainting);
     }
-
     if (authorId) {
       stringWithParams.searchParams.append('authorId', authorId);
     }
@@ -35,13 +26,13 @@ function MainPage({
     if (before) {
       stringWithParams.searchParams.append('created_lte', before);
     }
-
+    console.log('w location', window.location.href);
     if (!namePainting && !authorId && !locationId && !from && !before) {
       getAllPaintings().then((res) => setPages({ ...pages, totalPages: Math.ceil(res.data.length / 12) }));
       getPaintingsByPage(pages.currentPage).then((res) => setPaintings(res.data));
     } else {
       getFilteredPaintings(stringWithParams).then((res) => {
-        setPages({ ...pages, totalPages: Math.ceil(res.data.length / 12) });
+        setPages((prevState) => ({ ...prevState, totalPages: Math.ceil(res.data.length / 12), currentPage: 1 }));
         setPaintings(res.data);
       });
     }
@@ -49,12 +40,10 @@ function MainPage({
   useEffect(() => {
     handleSearch();
   }, []);
+
   return (
     <div className={styles.mainPage__container}>
-
-      <Header
-        className="header"
-      />
+      <Header className="header" />
 
       <FilterGroup
         className="search"
@@ -64,48 +53,50 @@ function MainPage({
       />
       <div className={styles.paintings__wrapper}>
         <>
-          {
-              locationOptions.length && authorOptions.length
-                ? paintings.map((painting) => (
-                  <ImageWithInfo
-                    painting={painting}
-                    location={locationOptions.filter((location) => location.value === painting.locationId)[0].label}
-                    authorName={authorOptions.filter((author) => author.value === painting.authorId)[0].label}
-                    key={painting.id}
-                  />
-                ))
-                : <></>
-            }
+          {locationOptions.length && authorOptions.length ? (
+            paintings.map((painting) => (
+              <ImageWithInfo
+                painting={painting}
+                location={locationOptions.filter((location) => location.value === painting.locationId)[0].label}
+                authorName={authorOptions.filter((author) => author.value === painting.authorId)[0].label}
+                key={painting.id}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </>
-
       </div>
-      <Pagination
-        pages={pages}
-        setPages={setPages}
-      />
+      <Pagination pages={pages} setPages={setPages} />
     </div>
   );
 }
 
 MainPage.propTypes = {
-  paintings: PropTypes.arrayOf(PropTypes.shape({
-    authorId: PropTypes.number.isRequired,
-    locationId: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+  paintings: PropTypes.arrayOf(
+    PropTypes.shape({
+      authorId: PropTypes.number.isRequired,
+      locationId: PropTypes.number.isRequired,
+      created: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
   setPaintings: PropTypes.func.isRequired,
   pages: PropTypes.shape({
     totalPages: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
   }).isRequired,
   setPages: PropTypes.func.isRequired,
-  locationOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.number.isRequired,
-    label: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  authorOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.number.isRequired,
-    label: PropTypes.string.isRequired,
-  })).isRequired,
+  locationOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  authorOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 export default MainPage;

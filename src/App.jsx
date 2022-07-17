@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
 import MainPage from './pages/MainPage/MainPage';
 import { getAllAuthors, getAllLocations, getPaintingsByPage } from './requests/request';
 
 function App() {
-  const theme = useSelector((state) => state.theme.theme);
   const [paintings, setPaintings] = useState([]);
-
   const [authorOptions, setAuthorOptions] = useState([]);
   const [locationOptions, setLocationOptions] = useState([]);
 
