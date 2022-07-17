@@ -7,9 +7,6 @@ function CustomInput({ theme, ...props }) {
 }
 CustomInput.propTypes = {
   theme: PropTypes.string.isRequired,
-  props: PropTypes.shape({
-    placeholder: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  props: PropTypes.any,
 };
 export default CustomInput;

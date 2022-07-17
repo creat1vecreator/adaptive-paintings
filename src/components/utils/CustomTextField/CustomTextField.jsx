@@ -29,9 +29,6 @@ CustomTextField.propTypes = {
   }).isRequired,
   theme: PropTypes.string.isRequired,
   setFilterState: PropTypes.func.isRequired,
-  props: PropTypes.shape({
-    placeholder: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  props: PropTypes.any,
 };
 export default CustomTextField;

@@ -75,13 +75,13 @@ function FilterGroup({
 }
 FilterGroup.propTypes = {
   handleSearch: PropTypes.func.isRequired,
-  locationOptions: PropTypes.shape({
-    value: PropTypes.string.isRequired,
+  locationOptions: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
-  }).isRequired,
-  authorOptions: PropTypes.shape({
-    value: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
+  authorOptions: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
-  }).isRequired,
+  })).isRequired,
 };
 export default FilterGroup;

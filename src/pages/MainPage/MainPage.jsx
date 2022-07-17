@@ -90,7 +90,7 @@ function MainPage({
 MainPage.propTypes = {
   paintings: PropTypes.arrayOf(PropTypes.shape({
     authorId: PropTypes.number.isRequired,
-    locationId: PropTypes.string.isRequired,
+    locationId: PropTypes.number.isRequired,
     created: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   setPaintings: PropTypes.func.isRequired,
@@ -100,12 +100,12 @@ MainPage.propTypes = {
   }).isRequired,
   setPages: PropTypes.func.isRequired,
   locationOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   authorOptions: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+  })).isRequired,
 };
 export default MainPage;
