@@ -4,7 +4,6 @@ import { getAllPaintings } from '../requests/request';
 
 export const getPaintingsByFilters = createAsyncThunk(
   'paintings/getPaintingsByFilters',
-  // eslint-disable-next-line consistent-return
   async ({ url }, { dispatch, getState }) => {
     const { currentPage } = getState().pages;
     const { totalPages } = getState().pages;
