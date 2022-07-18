@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header/Header';
 import styles from './styles.module.scss';
 import Pagination from '../../components/Pagination/Pagination';
@@ -7,8 +8,15 @@ import FilterGroup from '../../components/FilterGroup/FilterGroup';
 import { GET_ALL_PAINTINGS } from '../../requests/routes';
 import ImageWithInfo from '../../components/ImageWithInfo/ImageWithInfo';
 import { getAllPaintings, getFilteredPaintings, getPaintingsByPage } from '../../requests/request';
+import { setAuthorOptions, setLocationOptions } from '../../store/optionsSlice';
 
-function MainPage({ paintings, setPaintings, pages, setPages, locationOptions, authorOptions }) {
+function MainPage({ paintings, setPaintings, pages, setPages }) {
+  const dispatch = useDispatch();
+  console.log('хуй');
+  const locationOptions = useSelector((state) => state.options.locationOptions);
+  const authorOptions = useSelector((state) => state.options.authorOptions);
+  console.log('au opt', authorOptions);
+  console.log('loc opt', locationOptions);
   const handleSearch = (namePainting, authorId, locationId, from, before) => {
     const stringWithParams = new URL(GET_ALL_PAINTINGS);
     if (namePainting) {
@@ -38,7 +46,9 @@ function MainPage({ paintings, setPaintings, pages, setPages, locationOptions, a
     }
   };
   useEffect(() => {
-    handleSearch();
+    // handleSearch();
+    dispatch(setAuthorOptions());
+    dispatch(setLocationOptions());
   }, []);
 
   return (
@@ -86,17 +96,17 @@ MainPage.propTypes = {
     currentPage: PropTypes.number.isRequired,
   }).isRequired,
   setPages: PropTypes.func.isRequired,
-  locationOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  authorOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  // locationOptions: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     value: PropTypes.number.isRequired,
+  //     label: PropTypes.string.isRequired,
+  //   }).isRequired,
+  // ).isRequired,
+  // authorOptions: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     value: PropTypes.number.isRequired,
+  //     label: PropTypes.string.isRequired,
+  //   }),
+  // ).isRequired,
 };
 export default MainPage;

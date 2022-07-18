@@ -15,5 +15,5 @@ const pagesSlice = createSlice({
     },
   },
 });
-export const { setCurrentPage } = pagesSlice.actions;
-export default pagesSlice;
+export const { setCurrentPage, setTotalPages } = pagesSlice.actions;
+export default pagesSlice.reducer;

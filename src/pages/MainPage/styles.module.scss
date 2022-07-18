@@ -1,5 +1,4 @@
 .mainPage__container {
-  box-sizing: border-box;
   margin: auto;
   padding-top: 37px;
   max-width: 1180px;
@@ -11,7 +10,7 @@
     grid-auto-rows: 275px;
   }
 
-  @media (max-width: 1336px) {
+  @media (max-width: 1366px) {
     max-width: 940px;
     .paintings__wrapper {
       display: grid;
