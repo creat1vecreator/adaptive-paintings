@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MainPage from './pages/MainPage/MainPage';
-import { getAllAuthors, getAllLocations, getPaintingsByPage } from './requests/request';
+import { getPaintingsByPage } from './requests/request';
+import { setPaintings } from './store/paintingsSlice';
 
 function App() {
-  const [paintings, setPaintings] = useState([]);
-  const [authorOptions, setAuthorOptions] = useState([]);
-  const [locationOptions, setLocationOptions] = useState([]);
+  const paintingsFromRedux = useSelector((state) => state.paintings.paintings);
   const currentPage = useSelector((state) => state.pages.currentPage);
+  const dispatch = useDispatch();
+  console.log('paintingsFromRedux ', paintingsFromRedux);
 
   useEffect(() => {
     getPaintingsByPage(currentPage).then((res) => {
-      setPaintings(res.data);
+      dispatch(setPaintings(res.data));
     });
   }, [currentPage]);
 
-  useEffect(() => {
-    if (!locationOptions.length) {
-      getAllLocations().then((res) => {
-        setLocationOptions(res.data.map((location) => ({ value: location.id, label: location.location })));
-      });
-    }
-  }, []);
-  useEffect(() => {
-    if (!authorOptions.length) {
-      getAllAuthors().then((res) =>
-        setAuthorOptions(res.data.map((authorObj) => ({ value: authorObj.id, label: authorObj.name }))),
-      );
-    }
-  }, []);
-
-  return (
-    <MainPage
-      className="main-page"
-      paintings={paintings}
-      setPaintings={setPaintings}
-      locationOptions={locationOptions}
-      authorOptions={authorOptions}
-    />
-  );
+  return <MainPage className="main-page" />;
 }
 
 export default App;

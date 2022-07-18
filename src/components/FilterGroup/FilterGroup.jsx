@@ -6,33 +6,19 @@ import CustomSelect from '../utils/CustomSelect/CustomSelect';
 import CustomTextField from '../utils/CustomTextField/CustomTextField';
 import style from './styled.module.scss';
 
-function FilterGroup({
-  handleSearch,
-  locationOptions,
-  authorOptions,
-
-}) {
+function FilterGroup({ handleSearch, locationOptions, authorOptions }) {
   const theme = useSelector((state) => state.theme.theme);
-  const [filterState, setFilterState] = useState(
-    {
-      nameValue: '',
-      authorName: '',
-      location: '',
-      from: '',
-      before: '',
-
-    },
-  );
+  const [filterState, setFilterState] = useState({
+    nameValue: '',
+    authorName: '',
+    location: '',
+    from: '',
+    before: '',
+  });
   useEffect(() => {
     const authorNameValue = filterState.authorName?.value || '';
     const locationValue = filterState.location?.value || '';
-    handleSearch(
-      filterState.nameValue,
-      authorNameValue,
-      locationValue,
-      filterState.from,
-      filterState.before,
-    );
+    handleSearch(filterState.nameValue, authorNameValue, locationValue, filterState.from, filterState.before);
   }, [filterState]);
 
   return (
@@ -73,15 +59,20 @@ function FilterGroup({
     </div>
   );
 }
+
 FilterGroup.propTypes = {
   handleSearch: PropTypes.func.isRequired,
-  locationOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.number.isRequired,
-    label: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  authorOptions: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.number.isRequired,
-    label: PropTypes.string.isRequired,
-  })).isRequired,
+  locationOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  authorOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 export default FilterGroup;

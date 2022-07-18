@@ -23,6 +23,7 @@ function MainPage({ paintings, setPaintings }) {
     }
     if (authorId) {
       stringWithParams.searchParams.append('authorId', authorId);
+      console.log(stringWithParams.searchParams);
     }
     if (locationId) {
       stringWithParams.searchParams.append('locationId', locationId);
@@ -45,15 +46,12 @@ function MainPage({ paintings, setPaintings }) {
     }
   };
   useEffect(() => {
-    // dispatch(fetchLocations());
-    // dispatch(fetchAuthors());
     dispatch(fetchLocationsAndAuthors());
   }, []);
 
   return (
     <div className={styles.mainPage__container}>
       <Header className="header" />
-
       <FilterGroup
         className="search"
         handleSearch={handleSearch}

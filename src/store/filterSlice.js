@@ -13,8 +13,13 @@ const filterSlice = createSlice({
   },
   reducers: {
     setQValue: (state, action) => {
-      console.log('changed');
-      state.qValue += action.payload;
+      if (action.payload) {
+        state.qString.searchParams.set('q', action.payload);
+        state.qValue = action.payload;
+      } else {
+        state.qString.searchParams.delete('q');
+        state.qValue = action.payload;
+      }
     },
     setAuthorId: (state, action) => {
       state.authorId = action.payload;
