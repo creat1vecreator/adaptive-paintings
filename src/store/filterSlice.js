@@ -22,16 +22,41 @@ const filterSlice = createSlice({
       }
     },
     setAuthorId: (state, action) => {
-      state.authorId = action.payload;
+      if (action.payload) {
+        state.qString.searchParams.set('authorId', action.payload);
+        state.authorId = action.payload;
+      } else {
+        state.qString.searchParams.delete('authorId');
+        state.authorId = action.payload;
+      }
     },
     setLocationId: (state, action) => {
-      state.locationId = action.payload;
+      if (action.payload) {
+        state.qString.searchParams.set('locationId', action.payload);
+        state.locationId = action.payload;
+      } else {
+        state.qString.searchParams.delete('locationId');
+        state.locationId = action.payload;
+      }
     },
     setCreatedGte: (state, action) => {
+      if (action.payload) {
+        state.qString.searchParams.set('created_gte', action.payload);
+        state.created_gte = action.payload;
+      } else {
+        state.qString.searchParams.delete('created_gte');
+        state.created_gte = action.payload;
+      }
       state.created_gte = action.payload;
     },
     setCreatedLte: (state, action) => {
-      state.created_lte = action.payload;
+      if (action.payload) {
+        state.qString.searchParams.set('created_lte', action.payload);
+        state.created_lte = action.payload;
+      } else {
+        state.qString.searchParams.delete('created_lte');
+        state.created_lte = action.payload;
+      }
     },
   },
 });

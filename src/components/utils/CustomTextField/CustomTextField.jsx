@@ -5,9 +5,10 @@ import styles from './styled.module.scss';
 import { setQValue } from '../../../store/filterSlice';
 import { getPaintingsByFilters } from '../../../store/paintingsSlice';
 
-function CustomTextField({ filterState, setFilterState, theme, ...props }) {
+function CustomTextField({ ...props }) {
   const qString = useSelector((state) => state.filter.qString);
   const paintings = useSelector((state) => state.paintings.paintings);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [qVal, setQVal] = useState('');
   const dispatch = useDispatch();

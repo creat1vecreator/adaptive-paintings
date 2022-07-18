@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styled.module.scss';
-import { setCurrentPage } from '../../store/peagesSlice';
+import { setCurrentPage } from '../../store/pagesSlice';
 
 function Pagination() {
   const theme = useSelector((state) => state.theme.theme);

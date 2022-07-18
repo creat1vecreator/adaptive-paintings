@@ -6,10 +6,8 @@ import { getPaintingsByPage } from './requests/request';
 import { setPaintings } from './store/paintingsSlice';
 
 function App() {
-  const paintingsFromRedux = useSelector((state) => state.paintings.paintings);
   const currentPage = useSelector((state) => state.pages.currentPage);
   const dispatch = useDispatch();
-  console.log('paintingsFromRedux ', paintingsFromRedux);
 
   useEffect(() => {
     getPaintingsByPage(currentPage).then((res) => {

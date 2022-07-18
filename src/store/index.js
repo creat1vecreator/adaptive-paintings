@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import themeReducer from './themeSlice';
-import pagesSlice from './peagesSlice';
+import pagesSlice from './pagesSlice';
 import optionsSlice from './optionsSlice';
 import filterSlice from './filterSlice';
 import paintingsSlice from './paintingsSlice';
