@@ -1,17 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import { GET_ALL_PAINTINGS } from '../requests/routes';
+import { getPaintingsByFilters } from './paintingsSlice';
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState: {
-    q: '',
+    qValue: 'bbb',
     authorId: '',
     locationId: '',
     created_gte: '',
     created_lte: '',
+    qString: new URL(GET_ALL_PAINTINGS),
   },
   reducers: {
-    setQ: (state, action) => {
-      state.q = action.payload;
+    setQValue: (state, action) => {
+      const dispatch = useDispatch();
+      console.log('changed');
+      state.qValue += action.payload;
+      dispatch(getPaintingsByFilters());
     },
     setAuthorId: (state, action) => {
       state.authorId = action.payload;
@@ -27,5 +34,5 @@ const filterSlice = createSlice({
     },
   },
 });
-export const { setQ, setAuthorId, setLocationId, setCreatedGte, setCreatedLte } = filterSlice.actions;
+export const { setQValue, setAuthorId, setLocationId, setCreatedGte, setCreatedLte } = filterSlice.actions;
 export default filterSlice.reducer;
