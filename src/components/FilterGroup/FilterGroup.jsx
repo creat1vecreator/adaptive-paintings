@@ -1,32 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ControlledAccordions from '../utils/CustomAccorion/CustomAccordion';
 import CustomSelect from '../utils/CustomSelect/CustomSelect';
 import CustomTextField from '../utils/CustomTextField/CustomTextField';
 import style from './styled.module.scss';
+import { setAuthorId, setLocationId } from '../../store/filterSlice';
+import { getPaintingsByFilters } from '../../store/paintingsSlice';
 
 function FilterGroup({ locationOptions, authorOptions }) {
+  const dispatch = useDispatch();
+  const qString = useSelector((state) => state.filter.qString);
   const theme = useSelector((state) => state.theme.theme);
-  // const [filterState, setFilterState] = useState({
-  //   nameValue: '',
-  //   authorName: '',
-  //   location: '',
-  //   from: '',
-  //   before: '',
-  // });
-  // useEffect(() => {
-  //   const authorNameValue = filterState.authorName?.value || '';
-  //   const locationValue = filterState.location?.value || '';
-  //   handleSearch(filterState.nameValue, authorNameValue, locationValue, filterState.from, filterState.before);
-  // }, [filterState]);
+  const [filterState, setFilterState] = useState({
+    authorName: '',
+    location: '',
+  });
+  useEffect(() => {
+    const authorNameValue = filterState.authorName?.value || '';
+    dispatch(setAuthorId(authorNameValue));
+    dispatch(getPaintingsByFilters({ url: qString.href }));
+  }, [filterState.authorName]);
+
+  useEffect(() => {
+    const locationValue = filterState.location?.value || '';
+    dispatch(setLocationId(locationValue));
+    dispatch(getPaintingsByFilters({ url: qString.href }));
+  }, [filterState.location]);
 
   return (
     <div className={style.search__wrapper}>
       <CustomTextField placeholder="Name" name="name" theme={theme} />
       <CustomSelect
         defulatValue=""
-        // onChange={(opt) => setFilterState({ ...filterState, authorName: opt })}
+        onChange={(opt) => setFilterState({ ...filterState, authorName: opt })}
         name="author"
         options={authorOptions}
         placeholder="Author"
@@ -35,7 +42,7 @@ function FilterGroup({ locationOptions, authorOptions }) {
       />
       <CustomSelect
         defulatValue=""
-        // onChange={(opt) => setFilterState({ ...filterState, location: opt })}
+        onChange={(opt) => setFilterState({ ...filterState, location: opt })}
         className="search__input search__input-location"
         options={locationOptions}
         placeholder="Location"

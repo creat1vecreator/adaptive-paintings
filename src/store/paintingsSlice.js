@@ -4,7 +4,7 @@ import { setCurrentPage, setTotalPages } from './pagesSlice';
 export const getPaintingsByFilters = createAsyncThunk(
   'paintings/getPaintingsByFilters',
   async ({ url }, { dispatch }) => {
-    console.log('action payload in paintings slice:', url);
+    console.log('got url in paintings slice:', url);
     const response = await fetch(url);
     const data = await response.json();
     dispatch(setCurrentPage(1));
@@ -25,7 +25,6 @@ const paintingsSlice = createSlice({
   },
   extraReducers: {
     [getPaintingsByFilters.fulfilled]: (state, action) => {
-      console.log('in extra reducers for painting');
       state.paintings = action.payload;
     },
   },

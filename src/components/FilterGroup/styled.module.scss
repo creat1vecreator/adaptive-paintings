@@ -4,7 +4,7 @@
   margin-bottom: 45px;
 
   & > * {
-    width: 265px !important;
+    width: 600px !important;
     max-height: 45px !important;
     max-width: 23%;
   }
@@ -19,12 +19,14 @@
 
   @media (max-width: 768px) {
     flex-direction: column;
-    .header__mode-switcher-wrapper {
 
+    .header__mode-switcher-wrapper {
     }
-    gap: 15px;
     & > * {
-      max-width: 280px;
+      align-self: center;
+      display: inline-block;
+      margin-bottom: 15px;
+      max-width: 100%;
     }
   }
 }

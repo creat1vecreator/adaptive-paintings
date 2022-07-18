@@ -7,21 +7,18 @@ import { getPaintingsByFilters } from '../../../store/paintingsSlice';
 
 function CustomTextField({ ...props }) {
   const qString = useSelector((state) => state.filter.qString);
-  const paintings = useSelector((state) => state.paintings.paintings);
   const theme = useSelector((state) => state.theme.theme);
 
   const [qVal, setQVal] = useState('');
   const dispatch = useDispatch();
+
   const setNameHandler = (evt) => {
-    console.log('вызван set name');
     setQVal(() => evt.target.value);
   };
 
   useEffect(() => {
     dispatch(setQValue(qVal));
-    console.log('after qstring', qString.href);
     dispatch(getPaintingsByFilters({ url: qString.href }));
-    console.log('new paintings', paintings);
   }, [qVal]);
 
   return (
@@ -30,11 +27,6 @@ function CustomTextField({ ...props }) {
 }
 
 CustomTextField.propTypes = {
-  filterState: PropTypes.shape({
-    nameValue: PropTypes.string.isRequired,
-  }).isRequired,
-  theme: PropTypes.string.isRequired,
-  setFilterState: PropTypes.func.isRequired,
   props: PropTypes.any,
 };
 export default CustomTextField;

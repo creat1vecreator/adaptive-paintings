@@ -1,7 +1,8 @@
 .mainPage__container {
   margin: auto;
-  padding-top: 37px;
-  max-width: 1180px;
+  padding: 35px 123px;
+  align-items: center;
+  justify-content: center;
 
   .paintings__wrapper {
     display: grid;
@@ -11,7 +12,7 @@
   }
 
   @media (max-width: 1366px) {
-    max-width: 940px;
+    padding: 0 42px;
     .paintings__wrapper {
       display: grid;
       gap: 20px;
@@ -22,9 +23,7 @@
   }
 
   @media (max-width: 1024px) {
-    padding-top: 35px;
-    max-width: 700px;
-
+    padding: 0 34px;
     .paintings__wrapper {
       display: grid;
       gap: 20px;
@@ -35,8 +34,7 @@
     }
   }
   @media (max-width: 768px) {
-    padding-top: 25px;
-    max-width: 280px;
+    padding: 25px 20px;
 
     .paintings__wrapper {
       display: flex;
