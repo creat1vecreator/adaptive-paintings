@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+// import { useSelector } from 'react-redux';
 import MainPage from './pages/MainPage/MainPage';
 import { getAllAuthors, getAllLocations, getPaintingsByPage } from './requests/request';
 
@@ -12,6 +13,8 @@ function App() {
     totalPages: 0,
     currentPage: 1,
   });
+  // const totalPages1 = useSelector((state) => state.pages.totalPages);
+  // const currentPage1 = useSelector((state) => state.pages.currentPage);
 
   useEffect(() => {
     getPaintingsByPage(pages.currentPage).then((res) => {
@@ -22,17 +25,15 @@ function App() {
   useEffect(() => {
     if (!locationOptions.length) {
       getAllLocations().then((res) => {
-        setLocationOptions(
-          res.data.map((location) => ({ value: location.id, label: location.location })),
-        );
+        setLocationOptions(res.data.map((location) => ({ value: location.id, label: location.location })));
       });
     }
   }, []);
   useEffect(() => {
     if (!authorOptions.length) {
-      getAllAuthors().then((res) => setAuthorOptions(
-        res.data.map((authorObj) => ({ value: authorObj.id, label: authorObj.name })),
-      ));
+      getAllAuthors().then((res) =>
+        setAuthorOptions(res.data.map((authorObj) => ({ value: authorObj.id, label: authorObj.name }))),
+      );
     }
   }, []);
 
@@ -48,4 +49,5 @@ function App() {
     />
   );
 }
+
 export default App;

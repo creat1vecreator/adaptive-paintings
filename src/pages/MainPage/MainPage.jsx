@@ -8,15 +8,12 @@ import FilterGroup from '../../components/FilterGroup/FilterGroup';
 import { GET_ALL_PAINTINGS } from '../../requests/routes';
 import ImageWithInfo from '../../components/ImageWithInfo/ImageWithInfo';
 import { getAllPaintings, getFilteredPaintings, getPaintingsByPage } from '../../requests/request';
-import { setAuthorOptions, setLocationOptions } from '../../store/optionsSlice';
+import { fetchLocationsAndAuthors } from '../../store/optionsSlice';
 
 function MainPage({ paintings, setPaintings, pages, setPages }) {
   const dispatch = useDispatch();
-  console.log('хуй');
   const locationOptions = useSelector((state) => state.options.locationOptions);
   const authorOptions = useSelector((state) => state.options.authorOptions);
-  console.log('au opt', authorOptions);
-  console.log('loc opt', locationOptions);
   const handleSearch = (namePainting, authorId, locationId, from, before) => {
     const stringWithParams = new URL(GET_ALL_PAINTINGS);
     if (namePainting) {
@@ -34,7 +31,6 @@ function MainPage({ paintings, setPaintings, pages, setPages }) {
     if (before) {
       stringWithParams.searchParams.append('created_lte', before);
     }
-    console.log('w location', window.location.href);
     if (!namePainting && !authorId && !locationId && !from && !before) {
       getAllPaintings().then((res) => setPages({ ...pages, totalPages: Math.ceil(res.data.length / 12) }));
       getPaintingsByPage(pages.currentPage).then((res) => setPaintings(res.data));
@@ -46,9 +42,9 @@ function MainPage({ paintings, setPaintings, pages, setPages }) {
     }
   };
   useEffect(() => {
-    // handleSearch();
-    dispatch(setAuthorOptions());
-    dispatch(setLocationOptions());
+    // dispatch(fetchLocations());
+    // dispatch(fetchAuthors());
+    dispatch(fetchLocationsAndAuthors());
   }, []);
 
   return (
