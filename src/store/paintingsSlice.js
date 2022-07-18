@@ -22,6 +22,12 @@ export const getPaintingsByFilters = createAsyncThunk(
       getAllPaintings().then((res) => dispatch(setTotalPages(Math.ceil(res.data.length / 12))));
       return data;
     }
+    newURL.searchParams.append('_page', currentPage);
+    const response = await fetch(newURL);
+    const data = await response.json();
+    dispatch(setCurrentPage(1));
+    dispatch(setTotalPages(Math.ceil(data.length / 12)));
+    return data;
   },
 );
 const paintingsSlice = createSlice({
