@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styled.module.scss';
+import { setQ } from '../../../store/filterSlice';
 
-function CustomTextField({
-  filterState,
-  setFilterState,
-  theme,
-  ...props
-}) {
+function CustomTextField({ filterState, setFilterState, theme, ...props }) {
+  const dispatch = useDispatch();
+  const nameVal = useSelector((state) => state.filter.q);
   const setNameHandler = (evt) => {
-    setFilterState({ ...filterState, nameValue: evt.target.value });
+    dispatch(setQ(evt.target.value));
   };
 
   return (
     <input
       className={styles.search__textField}
       onChange={setNameHandler}
-      value={filterState.nameValue}
+      value={nameVal}
       data-theme={theme}
       {...props}
     />

@@ -19,13 +19,13 @@ const filterSlice = createSlice({
     setLocationId: (state, action) => {
       state.locationId = action.payload;
     },
-    setCreated_gte: (state, action) => {
+    setCreatedGte: (state, action) => {
       state.created_gte = action.payload;
     },
-    setCreated_lte: (state, action) => {
+    setCreatedLte: (state, action) => {
       state.created_lte = action.payload;
     },
   },
 });
-export const { getFilteredEntities } = filterSlice.actions;
-export default filterSlice;
+export const { setQ, setAuthorId, setLocationId, setCreatedGte, setCreatedLte } = filterSlice.actions;
+export default filterSlice.reducer;
