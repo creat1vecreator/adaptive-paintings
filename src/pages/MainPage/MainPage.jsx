@@ -9,11 +9,13 @@ import { GET_ALL_PAINTINGS } from '../../requests/routes';
 import ImageWithInfo from '../../components/ImageWithInfo/ImageWithInfo';
 import { getAllPaintings, getFilteredPaintings, getPaintingsByPage } from '../../requests/request';
 import { fetchLocationsAndAuthors } from '../../store/optionsSlice';
+import { setCurrentPage, setTotalPages } from '../../store/peagesSlice';
 
-function MainPage({ paintings, setPaintings, pages, setPages }) {
+function MainPage({ paintings, setPaintings }) {
   const dispatch = useDispatch();
   const locationOptions = useSelector((state) => state.options.locationOptions);
   const authorOptions = useSelector((state) => state.options.authorOptions);
+  const currentPage = useSelector((state) => state.pages.currentPage);
   const handleSearch = (namePainting, authorId, locationId, from, before) => {
     const stringWithParams = new URL(GET_ALL_PAINTINGS);
     if (namePainting) {
@@ -32,11 +34,12 @@ function MainPage({ paintings, setPaintings, pages, setPages }) {
       stringWithParams.searchParams.append('created_lte', before);
     }
     if (!namePainting && !authorId && !locationId && !from && !before) {
-      getAllPaintings().then((res) => setPages({ ...pages, totalPages: Math.ceil(res.data.length / 12) }));
-      getPaintingsByPage(pages.currentPage).then((res) => setPaintings(res.data));
+      getAllPaintings().then((res) => dispatch(setTotalPages(Math.ceil(res.data.length / 12))));
+      getPaintingsByPage(currentPage).then((res) => setPaintings(res.data));
     } else {
       getFilteredPaintings(stringWithParams).then((res) => {
-        setPages((prevState) => ({ ...prevState, totalPages: Math.ceil(res.data.length / 12), currentPage: 1 }));
+        dispatch(setTotalPages(Math.ceil(res.data.length / 12)));
+        dispatch(setCurrentPage(1));
         setPaintings(res.data);
       });
     }
@@ -73,7 +76,7 @@ function MainPage({ paintings, setPaintings, pages, setPages }) {
           )}
         </>
       </div>
-      <Pagination pages={pages} setPages={setPages} />
+      <Pagination />
     </div>
   );
 }
@@ -87,22 +90,5 @@ MainPage.propTypes = {
     }).isRequired,
   ).isRequired,
   setPaintings: PropTypes.func.isRequired,
-  pages: PropTypes.shape({
-    totalPages: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
-  }).isRequired,
-  setPages: PropTypes.func.isRequired,
-  // locationOptions: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     value: PropTypes.number.isRequired,
-  //     label: PropTypes.string.isRequired,
-  //   }).isRequired,
-  // ).isRequired,
-  // authorOptions: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     value: PropTypes.number.isRequired,
-  //     label: PropTypes.string.isRequired,
-  //   }),
-  // ).isRequired,
 };
 export default MainPage;

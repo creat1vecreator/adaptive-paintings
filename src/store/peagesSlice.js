@@ -8,10 +8,11 @@ const pagesSlice = createSlice({
   },
   reducers: {
     setCurrentPage(state, action) {
+      console.log('set curr page to:', action.payload);
       state.currentPage = action.payload;
     },
     setTotalPages(state, action) {
-      state.totalPage = Math.ceil(action.payload.paintings.length / 12);
+      state.totalPages = action.payload;
     },
   },
 });

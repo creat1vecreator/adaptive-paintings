@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MainPage from './pages/MainPage/MainPage';
 import { getAllAuthors, getAllLocations, getPaintingsByPage } from './requests/request';
 
@@ -8,19 +8,13 @@ function App() {
   const [paintings, setPaintings] = useState([]);
   const [authorOptions, setAuthorOptions] = useState([]);
   const [locationOptions, setLocationOptions] = useState([]);
-
-  const [pages, setPages] = useState({
-    totalPages: 0,
-    currentPage: 1,
-  });
-  // const totalPages1 = useSelector((state) => state.pages.totalPages);
-  // const currentPage1 = useSelector((state) => state.pages.currentPage);
+  const currentPage = useSelector((state) => state.pages.currentPage);
 
   useEffect(() => {
-    getPaintingsByPage(pages.currentPage).then((res) => {
+    getPaintingsByPage(currentPage).then((res) => {
       setPaintings(res.data);
     });
-  }, [pages.currentPage]);
+  }, [currentPage]);
 
   useEffect(() => {
     if (!locationOptions.length) {
@@ -42,8 +36,6 @@ function App() {
       className="main-page"
       paintings={paintings}
       setPaintings={setPaintings}
-      pages={pages}
-      setPages={setPages}
       locationOptions={locationOptions}
       authorOptions={authorOptions}
     />
