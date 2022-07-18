@@ -3,21 +3,23 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styled.module.scss';
 import { setQValue } from '../../../store/filterSlice';
-import { getPaintingsByFilters } from '../../../store/paintingsSlice';
 
 function CustomTextField({ filterState, setFilterState, theme, ...props }) {
   const qhaha = useSelector((state) => state.filter.qValue);
+  const qString = useSelector((state) => state.filter.qString);
+
   const [qVal, setQVal] = useState('');
   const dispatch = useDispatch();
   const setNameHandler = (evt) => {
-    setQVal(evt.target.value);
+    console.log();
+    setQVal(() => evt.target.value);
   };
 
   useEffect(() => {
     console.log('setting before', qhaha);
     dispatch(setQValue(qVal));
-    dispatch(getPaintingsByFilters());
     console.log('setting after', qhaha);
+    console.log('after', qString);
   }, [qVal]);
 
   return (

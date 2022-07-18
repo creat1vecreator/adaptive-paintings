@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 
-export const getPaintingsByFilters = createAsyncThunk('paintings/getPaintingsByFilters', async () => {
-  const url = useSelector((state) => state.filter.qString);
+export const getPaintingsByFilters = createAsyncThunk('paintings/getPaintingsByFilters', async (url) => {
   console.log('action payload in paintings slice:', url);
   const response = await fetch(url);
   const data = await response.json();
