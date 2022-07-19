@@ -4,6 +4,7 @@ import { BASE_URL } from '../requests/routes';
 
 export const stringToQuery = new URL(`${BASE_URL}/paintings`);
 export const refOfWindow = new URL(window.location.href);
+refOfWindow.pathname = '/paintings';
 stringToQuery.searchParams.append('_page', 1);
 
 // eslint-disable-next-line import/prefer-default-export

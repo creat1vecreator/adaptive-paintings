@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createBrowserHistory } from 'history';
 import { useCustomHook } from '../hooks/useCustomHook';
 
 const pagesSlice = createSlice({
@@ -10,8 +9,6 @@ const pagesSlice = createSlice({
   },
   reducers: {
     setCurrentPage(state, action) {
-      const history = createBrowserHistory();
-      history.push(`?_page=${action.payload}`);
       state.currentPage = action.payload;
       const { setParamToCurrLocation } = useCustomHook();
       setParamToCurrLocation('_page', action.payload);
