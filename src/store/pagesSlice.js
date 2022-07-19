@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createBrowserHistory } from 'history';
 
 const pagesSlice = createSlice({
   name: 'pages',
@@ -8,6 +9,8 @@ const pagesSlice = createSlice({
   },
   reducers: {
     setCurrentPage(state, action) {
+      const history = createBrowserHistory();
+      history.push(`?_page=${action.payload}`);
       state.currentPage = action.payload;
     },
     setTotalPages(state, action) {

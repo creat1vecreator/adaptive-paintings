@@ -2,11 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styled.module.scss';
 import { setCurrentPage } from '../../store/pagesSlice';
+import { getPaintingsByFilters } from '../../store/paintingsSlice';
 
 function Pagination() {
   const theme = useSelector((state) => state.theme.theme);
   const totalPages = useSelector((state) => state.pages.totalPages);
   const currentPage = useSelector((state) => state.pages.currentPage);
+  const qString = useSelector((state) => state.filter.qString);
   const dispatch = useDispatch();
   const totalButtons = [];
 
@@ -15,18 +17,22 @@ function Pagination() {
   }
   const backPageTotal = () => {
     dispatch(setCurrentPage(1));
+    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
   };
 
   const backPage = () => {
     dispatch(setCurrentPage(currentPage - 1));
+    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
   };
 
   const aheadPage = () => {
     console.log('ahead page');
     dispatch(setCurrentPage(currentPage + 1));
+    dispatch(getPaintingsByFilters({ page: currentPage }));
   };
   const aheadTotalPage = () => {
     dispatch(setCurrentPage(totalPages));
+    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
   };
 
   const certainPageHandler = (evt) => {

@@ -8,12 +8,8 @@ export const getPaintingsByFilters = createAsyncThunk(
     const { currentPage } = getState().pages;
     const { totalPages } = getState().pages;
 
-    console.log('page in getPaintings by filter', currentPage);
-    console.log('got url in paintings slice:', url);
     const newURL = new URL(url);
-    console.log('total pages in haha:', totalPages);
-    if (!totalPages) {
-      console.log('!totalPages', !totalPages);
+    if (totalPages <= 3) {
       newURL.searchParams.append('_limit', 12);
       const response = await fetch(newURL);
       const data = await response.json();

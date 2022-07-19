@@ -42,6 +42,7 @@
     "react/forbid-prop-types": "off",
     "react/require-default-props": "off",
     "no-param-reassign": "off",
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "no-restricted-globals": "off"
   }
 }

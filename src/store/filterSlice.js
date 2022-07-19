@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createBrowserHistory } from 'history';
 import { GET_ALL_PAINTINGS } from '../requests/routes';
 
 const filterSlice = createSlice({
@@ -16,6 +17,8 @@ const filterSlice = createSlice({
       if (action.payload) {
         state.qString.searchParams.set('q', action.payload);
         state.qValue = action.payload;
+        const location = createBrowserHistory();
+        location.push('/paintings');
       } else {
         state.qString.searchParams.delete('q');
         state.qValue = action.payload;
@@ -25,6 +28,7 @@ const filterSlice = createSlice({
       if (action.payload) {
         state.qString.searchParams.set('authorId', action.payload);
         state.authorId = action.payload;
+        // eslint-disable-next-line no-restricted-globals
       } else {
         state.qString.searchParams.delete('authorId');
         state.authorId = action.payload;
