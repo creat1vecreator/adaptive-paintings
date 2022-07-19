@@ -6,7 +6,6 @@ import { setQValue } from '../../../store/filterSlice';
 import { getPaintingsByFilters } from '../../../store/paintingsSlice';
 
 function CustomTextField({ ...props }) {
-  const qString = useSelector((state) => state.filter.qString);
   const theme = useSelector((state) => state.theme.theme);
 
   const [qVal, setQVal] = useState('');
@@ -18,7 +17,7 @@ function CustomTextField({ ...props }) {
 
   useEffect(() => {
     dispatch(setQValue(qVal));
-    dispatch(getPaintingsByFilters({ url: qString.href }));
+    dispatch(getPaintingsByFilters());
   }, [qVal]);
 
   return (

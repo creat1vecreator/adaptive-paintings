@@ -1,27 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { setCurrentPage, setTotalPages } from './pagesSlice';
+// import { createBrowserHistory } from 'history';
+// import { BASE_URL } from '../requests/routes';
+import { setTotalPages } from './pagesSlice';
 import { getAllPaintings } from '../requests/request';
+import { useCustomHook } from '../hooks/useCustomHook';
 
 export const getPaintingsByFilters = createAsyncThunk(
   'paintings/getPaintingsByFilters',
-  async ({ url }, { dispatch, getState }) => {
-    const { currentPage } = getState().pages;
+  async (_, { getState, dispatch }) => {
+    const { stringToQuery, refOfWindow } = useCustomHook();
+    console.log('ref of w:', refOfWindow);
+    console.log('string to querry in get painting by filteres', stringToQuery);
     const { totalPages } = getState().pages;
-
-    const newURL = new URL(url);
-    if (totalPages <= 3) {
-      newURL.searchParams.append('_limit', 12);
-      const response = await fetch(newURL);
-      const data = await response.json();
-      dispatch(setCurrentPage(1));
+    // const history = createBrowserHistory();
+    // const newUri = BASE_URL + history.location.pathname + history.location.search;
+    if (!totalPages) {
       getAllPaintings().then((res) => dispatch(setTotalPages(Math.ceil(res.data.length / 12))));
-      return data;
     }
-    newURL.searchParams.append('_page', currentPage);
-    const response = await fetch(newURL);
+    const response = await fetch(stringToQuery);
     const data = await response.json();
-    dispatch(setCurrentPage(1));
-    dispatch(setTotalPages(Math.ceil(data.length / 12)));
     return data;
   },
 );
@@ -32,7 +29,9 @@ const paintingsSlice = createSlice({
   },
   reducers: {
     setPaintings(state, action) {
+      const { setParamToCurrLocation } = useCustomHook();
       state.paintings = action.payload;
+      setParamToCurrLocation('_page', action.payload);
     },
   },
   extraReducers: {

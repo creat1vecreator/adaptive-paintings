@@ -10,7 +10,6 @@ import { getPaintingsByFilters } from '../../store/paintingsSlice';
 
 function FilterGroup({ locationOptions, authorOptions }) {
   const dispatch = useDispatch();
-  const qString = useSelector((state) => state.filter.qString);
   const theme = useSelector((state) => state.theme.theme);
   const [filterState, setFilterState] = useState({
     authorName: '',
@@ -19,13 +18,13 @@ function FilterGroup({ locationOptions, authorOptions }) {
   useEffect(() => {
     const authorNameValue = filterState.authorName?.value || '';
     dispatch(setAuthorId(authorNameValue));
-    dispatch(getPaintingsByFilters({ url: qString.href }));
+    dispatch(getPaintingsByFilters());
   }, [filterState.authorName]);
 
   useEffect(() => {
     const locationValue = filterState.location?.value || '';
     dispatch(setLocationId(locationValue));
-    dispatch(getPaintingsByFilters({ url: qString.href }));
+    dispatch(getPaintingsByFilters());
   }, [filterState.location]);
 
   return (

@@ -8,7 +8,6 @@ function Pagination() {
   const theme = useSelector((state) => state.theme.theme);
   const totalPages = useSelector((state) => state.pages.totalPages);
   const currentPage = useSelector((state) => state.pages.currentPage);
-  const qString = useSelector((state) => state.filter.qString);
   const dispatch = useDispatch();
   const totalButtons = [];
 
@@ -17,22 +16,22 @@ function Pagination() {
   }
   const backPageTotal = () => {
     dispatch(setCurrentPage(1));
-    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
+    dispatch(getPaintingsByFilters());
   };
 
   const backPage = () => {
     dispatch(setCurrentPage(currentPage - 1));
-    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
+    dispatch(getPaintingsByFilters());
   };
 
   const aheadPage = () => {
     console.log('ahead page');
     dispatch(setCurrentPage(currentPage + 1));
-    dispatch(getPaintingsByFilters({ page: currentPage }));
+    dispatch(getPaintingsByFilters());
   };
   const aheadTotalPage = () => {
     dispatch(setCurrentPage(totalPages));
-    dispatch(getPaintingsByFilters({ url: qString, page: currentPage }));
+    dispatch(getPaintingsByFilters());
   };
 
   const certainPageHandler = (evt) => {
