@@ -4,13 +4,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { setTotalPages } from './pagesSlice';
 import { getAllPaintings } from '../requests/request';
 import { useCustomHook } from '../hooks/useCustomHook';
-import { BASE_URL } from '../requests/routes';
 
 export const getPaintingsByFilters = createAsyncThunk(
   'paintings/getPaintingsByFilters',
   async (_, { getState, dispatch }) => {
     console.log('w loc:', window.location);
-    const stringToQuery = BASE_URL + window.location.pathname;
+    const { stringToQuery } = useCustomHook();
     const { totalPages } = getState().pages;
     if (!totalPages) {
       getAllPaintings().then((res) => dispatch(setTotalPages(Math.ceil(res.data.length / 12))));
