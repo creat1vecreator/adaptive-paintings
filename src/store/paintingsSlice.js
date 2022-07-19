@@ -10,10 +10,8 @@ export const getPaintingsByFilters = createAsyncThunk(
   async (_, { getState, dispatch }) => {
     const { stringToQuery } = useCustomHook();
     const history = createBrowserHistory();
-    console.log('search params to push:', stringToQuery.pathname);
     history.push(`${stringToQuery.pathname}/`);
     history.push(stringToQuery.search);
-    console.log('history', history.location);
 
     const { totalPages } = getState().pages;
     stringToQuery.searchParams.set('_limit', 12);

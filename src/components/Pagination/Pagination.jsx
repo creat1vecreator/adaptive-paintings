@@ -25,7 +25,6 @@ function Pagination() {
   };
 
   const aheadPage = () => {
-    console.log('ahead page');
     dispatch(setCurrentPage(currentPage + 1));
     dispatch(getPaintingsByFilters());
   };

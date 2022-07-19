@@ -31,7 +31,7 @@ function FilterGroup({ locationOptions, authorOptions }) {
     <div className={style.search__wrapper}>
       <CustomTextField placeholder="Name" name="name" theme={theme} />
       <CustomSelect
-        defulatValue=""
+        className="search__select search__selectAuthor"
         onChange={(opt) => setFilterState({ ...filterState, authorName: opt })}
         name="author"
         options={authorOptions}
@@ -40,9 +40,8 @@ function FilterGroup({ locationOptions, authorOptions }) {
         theme={theme}
       />
       <CustomSelect
-        defulatValue=""
+        className="search__select search__selectLocation"
         onChange={(opt) => setFilterState({ ...filterState, location: opt })}
-        className="search__input search__input-location"
         options={locationOptions}
         placeholder="Location"
         isClearable

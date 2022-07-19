@@ -29,7 +29,6 @@ const CustomSelect = styled(Select).attrs((props) => ({
       color: props.theme === 'light' ? 'black' : 'white',
       backgroundColor: props.theme === 'light' ? '#ffffff' : 'black',
       height: '40px',
-
     }),
 
     menu: (provided) => ({
@@ -47,7 +46,6 @@ const CustomSelect = styled(Select).attrs((props) => ({
           background: props.theme === 'light' ? 'black' : 'white',
         },
       },
-
     }),
 
     menuList: (provided) => ({
@@ -57,10 +55,8 @@ const CustomSelect = styled(Select).attrs((props) => ({
       height: '300px',
       paddingLeft: '4px',
       paddingRight: '4px',
-
     }),
   },
-
 }))`
   height: 45px;
   border: none;

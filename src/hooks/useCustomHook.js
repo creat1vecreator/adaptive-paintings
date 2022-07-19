@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars,import/prefer-default-export
-import { createBrowserHistory } from 'history';
 import { BASE_URL } from '../requests/routes';
 
 export const stringToQuery = new URL(`${BASE_URL}/paintings`);
@@ -11,6 +9,7 @@ export const useCustomHook = () => {
     switch (name) {
       case '_q':
         stringToQuery.searchParams.set('q', value);
+
         break;
       case 'authorId':
         stringToQuery.searchParams.set('authorId', value);
