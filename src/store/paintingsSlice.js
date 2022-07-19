@@ -8,18 +8,14 @@ import { useCustomHook } from '../hooks/useCustomHook';
 export const getPaintingsByFilters = createAsyncThunk(
   'paintings/getPaintingsByFilters',
   async (_, { getState, dispatch }) => {
-    const { stringToQuery, refOfWindow } = useCustomHook();
-    console.log('ref of w:', refOfWindow);
-    console.log('string to querry in get painting by filteres', stringToQuery);
+    console.log('w loc:', window.location);
     const { totalPages } = getState().pages;
-    // const history = createBrowserHistory();
-    // const newUri = BASE_URL + history.location.pathname + history.location.search;
     if (!totalPages) {
       getAllPaintings().then((res) => dispatch(setTotalPages(Math.ceil(res.data.length / 12))));
     }
-    const response = await fetch(stringToQuery);
-    const data = await response.json();
-    return data;
+    // const response = await fetch(stringToQuery);
+    // const data = await response.json();
+    // return data;
   },
 );
 const paintingsSlice = createSlice({
