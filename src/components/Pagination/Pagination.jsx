@@ -36,8 +36,8 @@ function Pagination() {
 
   const certainPageHandler = (evt) => {
     dispatch(setCurrentPage(+evt.target.value));
+    dispatch(getPaintingsByFilters());
   };
-
   return (
     <div className={styles.pagination__wrapper} data-theme={theme}>
       <ul className="pagination">
